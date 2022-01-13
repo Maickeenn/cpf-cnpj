@@ -37,4 +37,10 @@ public class CpfHandlerTest {
     public void shouldGenerateRandomCpf() {
         assertTrue(CpfHandler.validate(CpfHandler.random()));
     }
+
+    @Test
+    public void allMethodsShouldBeNullSafe(){
+        CpfHandler.validate(null);
+        CpfHandler.generateCheckDigit(null);
+    }
 }

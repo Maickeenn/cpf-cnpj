@@ -31,6 +31,10 @@ public class CpfHandler {
      */
     public static Integer generateCheckDigit(List<Integer> digits) {
 
+        if(digits == null){
+            return 0;
+        }
+
         final AtomicInteger counter = new AtomicInteger();
         final int weight = digits.size() + 1;
 
@@ -45,10 +49,11 @@ public class CpfHandler {
      * Validate a cpf
      *
      * @param cpf Digits of a CPF
-     * @return
+     * @return {@code true} if the argument is a valid CPF and {@code false} otherwise
      */
     public static boolean validate(List<Integer> cpf) {
-        return cpf.size() == 11 &&
+        return  cpf != null &&
+                cpf.size() == 11 &&
                 Objects.equals(cpf.get(9), generateCheckDigit(cpf.subList(0, 9))) &&
                 Objects.equals(cpf.get(10), generateCheckDigit(cpf.subList(0, 10)));
     }
