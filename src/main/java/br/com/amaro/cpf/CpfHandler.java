@@ -15,11 +15,13 @@ public class CpfHandler {
      */
     public static List<Integer> random() {
 
-        List<Integer> collect = new Random().ints(9, 0, 10)
+        final List<Integer> collect = new Random().ints(9, 0, 10)
                 .boxed()
                 .collect(Collectors.toList());
+
         collect.add(generateCheckDigit(collect));
         collect.add(generateCheckDigit(collect));
+
         return collect;
     }
 
@@ -29,9 +31,9 @@ public class CpfHandler {
      * @param digits first n digits
      * @return Check Digit
      */
-    public static Integer generateCheckDigit(List<Integer> digits) {
+    public static Integer generateCheckDigit(final List<Integer> digits) {
 
-        if(digits == null){
+        if (digits == null) {
             return 0;
         }
 
@@ -39,7 +41,6 @@ public class CpfHandler {
         final int weight = digits.size() + 1;
 
         final int number = digits.stream().reduce(0, (a, b) -> a + b * (weight - counter.getAndIncrement()));
-
         final int mod = 11 - number % 11;
 
         return mod >= 10 ? 0 : mod;
@@ -51,8 +52,8 @@ public class CpfHandler {
      * @param cpf Digits of a CPF
      * @return {@code true} if the argument is a valid CPF and {@code false} otherwise
      */
-    public static boolean validate(List<Integer> cpf) {
-        return  cpf != null &&
+    public static boolean validate(final List<Integer> cpf) {
+        return cpf != null &&
                 cpf.size() == 11 &&
                 Objects.equals(cpf.get(9), generateCheckDigit(cpf.subList(0, 9))) &&
                 Objects.equals(cpf.get(10), generateCheckDigit(cpf.subList(0, 10)));
