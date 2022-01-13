@@ -5,13 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CpfHandlerTest {
-
-    private CpfHandler cpfHandler;
 
     @Test
     public void shouldGenerateFirstCheckDigit() {
@@ -29,14 +27,14 @@ public class CpfHandlerTest {
     }
 
     @Test
-    public void shouldValidateCpf(){
+    public void shouldValidateCpf() {
         List<Integer> cpf = Arrays.asList(4, 2, 2, 0, 1, 6, 7, 8, 8, 9, 8);
 
         assertTrue(CpfHandler.validate(cpf));
     }
 
     @Test
-    public void shouldGenerateRandomCpf(){
+    public void shouldGenerateRandomCpf() {
         assertTrue(CpfHandler.validate(CpfHandler.random()));
     }
 }

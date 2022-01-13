@@ -1,12 +1,18 @@
 package br.com.amaro.cpf;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class CpfHandler {
 
+    /**
+     * Generate a random cpf
+     *
+     * @return Random cpf
+     */
     public static List<Integer> random() {
 
         List<Integer> collect = new Random().ints(9, 0, 10)
@@ -17,6 +23,12 @@ public class CpfHandler {
         return collect;
     }
 
+    /**
+     * Generate a check digit for the first n digits
+     *
+     * @param digits first n digits
+     * @return Check Digit
+     */
     public static Integer generateCheckDigit(List<Integer> digits) {
 
         final AtomicInteger counter = new AtomicInteger();
@@ -29,9 +41,15 @@ public class CpfHandler {
         return mod >= 10 ? 0 : mod;
     }
 
-    public static boolean validate(List<Integer> digits){
-        return  digits.size() == 11 &&
-                digits.get(9) == generateCheckDigit(digits.subList(0,9)) &&
-                digits.get(10) == generateCheckDigit(digits.subList(0,10));
+    /**
+     * Validate a cpf
+     *
+     * @param cpf Digits of a CPF
+     * @return
+     */
+    public static boolean validate(List<Integer> cpf) {
+        return cpf.size() == 11 &&
+                Objects.equals(cpf.get(9), generateCheckDigit(cpf.subList(0, 9))) &&
+                Objects.equals(cpf.get(10), generateCheckDigit(cpf.subList(0, 10)));
     }
 }
